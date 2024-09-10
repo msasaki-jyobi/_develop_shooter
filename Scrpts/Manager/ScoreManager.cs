@@ -1,3 +1,4 @@
+using develop_common;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -25,6 +26,9 @@ namespace develop_shooter
             UpdateScoreTextGUI();
             if (_currentScore >= _maxScore)
             {
+                if (TimerManager.Instance != null)
+                    TimerManager.Instance.OnStopTimer(true);
+
                 if (_messageTextGUI != null)
                     _messageTextGUI.text = _clearMessage;
             }
