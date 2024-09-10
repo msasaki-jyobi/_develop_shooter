@@ -14,6 +14,11 @@ namespace develop_shooter
         private int _currentScore;
         private int _maxScore;
 
+        private void Start()
+        {
+            UpdateScoreTextGUI();
+        }
+
         public void AddTarget()
         {
             _maxScore++;
