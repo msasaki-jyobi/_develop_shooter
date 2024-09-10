@@ -1,33 +1,37 @@
-using GameSet.Common;
+using develop_common;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EasyJump : MonoBehaviour
+namespace develop_shooter
 {
-    private Rigidbody _rigidBody;
-    [SerializeField] private float _jumpPower = 30f;
-    [SerializeField] private LineData _groundData;
-
-    [SerializeField] private float _drag = 0;
-    [SerializeField] private float _angularDrag = 0.05f;
-
-
-    private void Start()
+    public class EasyJump : MonoBehaviour
     {
-        _rigidBody = GetComponent<Rigidbody>();
-        _rigidBody.drag = _drag;
-        _rigidBody.angularDrag = _angularDrag;
-        _rigidBody.interpolation = RigidbodyInterpolation.None;
-    }
+        private Rigidbody _rigidBody;
+        [SerializeField] private float _jumpPower = 30f;
+        [SerializeField] private LineData _groundData;
 
-    private void Update()
-    {
-        bool check = UtilityFunction.CheckLineData(_groundData, transform);
-        if (check)
+        [SerializeField] private float _drag = 0;
+        [SerializeField] private float _angularDrag = 0.05f;
+
+
+        private void Start()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-                _rigidBody.AddForce(transform.up * _jumpPower, ForceMode.Impulse);
+            _rigidBody = GetComponent<Rigidbody>();
+            _rigidBody.drag = _drag;
+            _rigidBody.angularDrag = _angularDrag;
+            _rigidBody.interpolation = RigidbodyInterpolation.None;
+        }
+
+        private void Update()
+        {
+            bool check = UtilityFunction.CheckLineData(_groundData, transform);
+            if (check)
+            {
+                if (Input.GetKeyDown(KeyCode.Space))
+                    _rigidBody.AddForce(transform.up * _jumpPower, ForceMode.Impulse);
+            }
         }
     }
 }
+
