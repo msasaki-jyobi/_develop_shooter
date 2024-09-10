@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using develop_common;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,8 +15,9 @@ namespace develop_shooter
         private int _currentScore;
         private int _maxScore;
 
-        private void Start()
+        private async void Start()
         {
+            await UniTask.Delay(10);
             UpdateScoreTextGUI();
         }
 

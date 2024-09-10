@@ -11,7 +11,7 @@ namespace develop_shooter
         public EUnitType UnitType => unitType;
         [field: SerializeField] public float CurrentHealth { get; private set; } = 1f;
 
-        private void Start()
+        private void Awake()
         {
             if (ScoreManager.Instance != null)
                 ScoreManager.Instance.AddTarget();
