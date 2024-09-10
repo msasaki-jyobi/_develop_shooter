@@ -9,7 +9,13 @@ namespace develop_shooter
         [SerializeField]
         private EUnitType unitType = EUnitType.Player;
         public EUnitType UnitType => unitType;
-        [field: SerializeField] public float CurrentHealth { get; private set; } = 100f;
+        [field: SerializeField] public float CurrentHealth { get; private set; } = 1f;
+
+        private void Start()
+        {
+            if (ScoreManager.Instance != null)
+                ScoreManager.Instance.AddTarget();
+        }
 
         public void Heal(float amount)
         {
@@ -22,6 +28,9 @@ namespace develop_shooter
             CurrentHealth -= damageValue.Amount;
             if(CurrentHealth <= 0)
             {
+                if (ScoreManager.Instance != null)
+                    ScoreManager.Instance.AddScore();
+
                 Destroy(gameObject);
             }
         }
