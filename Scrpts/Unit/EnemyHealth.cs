@@ -9,7 +9,8 @@ namespace develop_shooter
         [SerializeField]
         private EUnitType unitType = EUnitType.Player;
         public EUnitType UnitType => unitType;
-        [field: SerializeField] public float CurrentHealth { get; private set; } = 1f;
+        [field: SerializeField] public int CurrentHealth { get; private set; } = 50;
+        public int MaxHealth { get; private set; } = 50;
 
         private void Awake()
         {
