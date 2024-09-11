@@ -1,7 +1,9 @@
+using Cysharp.Threading.Tasks;
 using develop_common;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -27,7 +29,7 @@ namespace develop_shooter
             UpdateHealthEvent?.Invoke(CurrentHealth, MaxHealth);
         }
 
-        public void TakeDamage(DamageValue damageValue)
+        public void TakeDamage(DamageValue damageValue = null)
         {
             if (CurrentHealth >= MaxHealth)
                 MaxHealth = CurrentHealth;
@@ -43,6 +45,26 @@ namespace develop_shooter
             if (CurrentHealth <= 0)
             {
                 DeadEvent?.Invoke();
+                Die();
+            }
+        }
+
+        private async Task Die()
+        {
+            DeadEvent?.Invoke();
+            Destroy(gameObject);
+            if (Camera.main.TryGetComponent<Collider>(out var collider))
+                collider.enabled = true;
+            if (Camera.main.TryGetComponent<Rigidbody>(out var rigid))
+            {
+                rigid.transform.parent = null;
+                rigid.isKinematic = false;
+                var x = UnityEngine.Random.Range(-4, 4);
+                var y = UnityEngine.Random.Range(0, 4);
+                var z = UnityEngine.Random.Range(-4, 4);
+                rigid.AddForce(transform.right * x + transform.up * y + transform.forward * z, ForceMode.Impulse);
+                await UniTask.Delay(1500);
+                rigid.isKinematic = true;
             }
         }
 
@@ -60,16 +82,16 @@ namespace develop_shooter
         {
             if (hit.TryGetComponent<Projectile>(out var projectile))
             {
-                DamageValue damageValue = new DamageValue();
-                damageValue.Amount = 1;
-                TakeDamage(damageValue);
+                TakeDamage();
+
+                ScreenFlash.Instance.FlashRedScreen();
             }
             if (hit.TryGetComponent<DamageBox>(out var damageBox))
             {
-                DamageValue damageValue = new DamageValue();
-                damageValue.Amount = 1;
-                TakeDamage(damageValue);
-                damageBox.OnHit();
+                TakeDamage();
+
+                ScreenFlash.Instance.FlashRedScreen();
+ 
             }
         }
     }

@@ -9,8 +9,10 @@ namespace develop_shooter
         [SerializeField]
         private EUnitType unitType = EUnitType.Player;
         public EUnitType UnitType => unitType;
-        [field: SerializeField] public int CurrentHealth { get; private set; } = 50;
+        [field: SerializeField] public int CurrentHealth { get; private set; } = 5;
         public int MaxHealth { get; private set; } = 50;
+
+        public ExplosiveBarrelScript Smile;
 
         private void Awake()
         {
@@ -23,16 +25,20 @@ namespace develop_shooter
             throw new System.NotImplementedException();
         }
 
-        public void TakeDamage(DamageValue damageValue)
+        public void TakeDamage(DamageValue damageValue = null)
         {
             Debug.Log("Damage");
-            CurrentHealth -= damageValue.Amount;
-            if(CurrentHealth <= 0)
+            CurrentHealth -= 1;
+            if (CurrentHealth <= 0)
             {
                 if (ScoreManager.Instance != null)
                     ScoreManager.Instance.AddScore();
 
-                Destroy(gameObject);
+                if (CurrentHealth <= -1)
+                    if (Smile != null)
+                        Smile.explode = true;
+
+                Destroy(gameObject, 0.25f);
             }
         }
 
@@ -48,11 +54,10 @@ namespace develop_shooter
 
         private void OnHit(GameObject hit)
         {
-            if(hit.TryGetComponent<Projectile>(out var projectile))
+            // 銃弾なら
+            if (hit.TryGetComponent<Projectile>(out var projectile))
             {
-                DamageValue damageValue = new DamageValue();
-                damageValue.Amount = 1;
-                TakeDamage(damageValue);
+                TakeDamage();
             }
         }
     }

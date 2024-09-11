@@ -1,3 +1,4 @@
+using develop_common;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,18 +23,22 @@ namespace develop_shooter
 
         private void OnCollisionEnter(Collision collision)
         {
-            OnHit();
+            OnHit(collision.gameObject);
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            OnHit();
+            OnHit(other.gameObject);
         }
 
-        private void OnHit()
+        private void OnHit(GameObject hit)
         {
-            GateManager.Instance.PlayGate();
-            Destroy(gameObject);
+            if(hit.TryGetComponent<IHealth>(out var health))
+            {
+                GateManager.Instance.PlayGate();
+                Destroy(gameObject);
+            }
+          
         }
     }
 }
