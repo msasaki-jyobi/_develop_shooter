@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace develop_shooter
 {
@@ -14,15 +15,16 @@ namespace develop_shooter
         public int MaxHealth { get; private set; } = 50;
 
         public event Action<int, int> UpdateHealthEvent;
+        public event Action DeadEvent;
 
         private void Start()
         {
             CurrentHealth = MaxHealth;
-            UpdateHealthEvent(CurrentHealth, MaxHealth);
+            UpdateHealthEvent?.Invoke(CurrentHealth, MaxHealth);
         }
         public void Heal(float amount)
         {
-            UpdateHealthEvent(CurrentHealth, MaxHealth);
+            UpdateHealthEvent?.Invoke(CurrentHealth, MaxHealth);
         }
 
         public void TakeDamage(DamageValue damageValue)
@@ -33,7 +35,15 @@ namespace develop_shooter
             var damage = MaxHealth * 0.1f;
 
             CurrentHealth -= (int)damage;
-            UpdateHealthEvent(CurrentHealth, MaxHealth);
+            UpdateHealthEvent?.Invoke(CurrentHealth, MaxHealth);
+
+            // ダメージ演出
+
+            // 死亡時
+            if (CurrentHealth <= 0)
+            {
+                DeadEvent?.Invoke();
+            }
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -59,6 +69,7 @@ namespace develop_shooter
                 DamageValue damageValue = new DamageValue();
                 damageValue.Amount = 1;
                 TakeDamage(damageValue);
+                damageBox.OnHit();
             }
         }
     }
