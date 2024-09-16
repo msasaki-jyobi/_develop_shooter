@@ -27,8 +27,14 @@ namespace develop_shooter
 
         public void TakeDamage(DamageValue damageValue = null)
         {
+            if(damageValue == null)
+            {
+                damageValue = new DamageValue();
+                damageValue.Amount = 1;
+            }
+
             Debug.Log("Damage");
-            CurrentHealth -= 1;
+            CurrentHealth -= damageValue.Amount;
             if (CurrentHealth <= 0)
             {
                 if (ScoreManager.Instance != null)
@@ -38,7 +44,7 @@ namespace develop_shooter
                     if (Smile != null)
                         Smile.explode = true;
 
-                Destroy(gameObject, 0.25f);
+                Destroy(gameObject, 0.35f);
             }
         }
 

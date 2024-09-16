@@ -40,6 +40,7 @@ namespace develop_shooter
             UpdateHealthEvent?.Invoke(CurrentHealth, MaxHealth);
 
             // ダメージ演出
+            ScreenFlash.Instance.FlashRedScreen();
 
             // 死亡時
             if (CurrentHealth <= 0)
@@ -80,19 +81,17 @@ namespace develop_shooter
 
         private void OnHit(GameObject hit)
         {
-            if (hit.TryGetComponent<Projectile>(out var projectile))
-            {
-                TakeDamage();
-
-                ScreenFlash.Instance.FlashRedScreen();
-            }
-            if (hit.TryGetComponent<DamageBox>(out var damageBox))
-            {
-                TakeDamage();
-
-                ScreenFlash.Instance.FlashRedScreen();
+            //if (hit.TryGetComponent<Projectile>(out var projectile))
+            //{
+            //    TakeDamage();
+            //    ScreenFlash.Instance.FlashRedScreen();
+            //}
+            //if (hit.TryGetComponent<DamageReceiver>(out var damageBox))
+            //{
+            //    TakeDamage();
+            //    ScreenFlash.Instance.FlashRedScreen();
  
-            }
+            //}
         }
     }
 }

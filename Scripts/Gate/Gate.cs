@@ -35,6 +35,7 @@ namespace develop_shooter
         {
             if(hit.TryGetComponent<IHealth>(out var health))
             {
+                if (health.UnitType == EUnitType.Enemy) return;
                 GateManager.Instance.PlayGate();
                 Destroy(gameObject);
             }

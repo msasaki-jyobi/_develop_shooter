@@ -1,4 +1,5 @@
 using develop_common;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,10 +35,12 @@ namespace develop_shooter
         //How powerful the explosion is
         public float explosionForce = 4000.0f;
 
+        public event Action DestroyEvent;
+
         private void Update()
         {
             //Generate random time based on min and max time values
-            randomTime = Random.Range(minTime, maxTime);
+            randomTime = UnityEngine.Random.Range(minTime, maxTime);
 
             //If the barrel is hit
             if (explode == true)
@@ -57,8 +60,9 @@ namespace develop_shooter
             yield return new WaitForSeconds(randomTime);
 
             //Spawn the destroyed barrel prefab
-            Instantiate(destroyedBarrelPrefab, transform.position,
-                         transform.rotation);
+            if (destroyedBarrelPrefab != null)
+                Instantiate(destroyedBarrelPrefab, transform.position,
+                             transform.rotation);
 
             //Explosion force
             Vector3 explosionPos = transform.position;
@@ -71,11 +75,11 @@ namespace develop_shooter
                 if (rb != null)
                     rb.AddForce(hit.transform.up * 40f, ForceMode.Impulse);
 
-                if(hit.TryGetComponent<IHealth>(out var health))
+                if (hit.TryGetComponent<IHealth>(out var health))
                 {
                     health.TakeDamage();
                 }
-                    //rb.AddExplosionForce(explosionForce * 50, explosionPos, explosionRadius);
+                //rb.AddExplosionForce(explosionForce * 50, explosionPos, explosionRadius);
 
                 //If the barrel explosion hits other barrels with the tag "ExplosiveBarrel"
                 if (hit.transform.tag == "ExplosiveBarrel")
@@ -111,6 +115,62 @@ namespace develop_shooter
 
             //Destroy the current barrel object
             Destroy(gameObject);
+            DestroyEvent?.Invoke();
+        }
+
+        /// <summary>
+        /// îöî≠Çé¿çs
+        /// </summary>
+        public void OnExplode(bool autoDestroy = false)
+        {
+            //Explosion force
+            Vector3 explosionPos = transform.position;
+            Collider[] colliders = Physics.OverlapSphere(explosionPos, explosionRadius);
+            foreach (Collider hit in colliders)
+            {
+                Rigidbody rb = hit.GetComponent<Rigidbody>();
+
+                //Add force to nearby rigidbodies
+                if (rb != null)
+                    rb.AddForce(hit.transform.up * 40f, ForceMode.Impulse);
+
+                if (hit.TryGetComponent<IHealth>(out var health))
+                {
+                    health.TakeDamage();
+                }
+                //rb.AddExplosionForce(explosionForce * 50, explosionPos, explosionRadius);
+
+                //If the barrel explosion hits other barrels with the tag "ExplosiveBarrel"
+                if (hit.transform.tag == "ExplosiveBarrel")
+                {
+                    //Toggle the explode bool on the explosive barrel object
+                    hit.transform.gameObject.GetComponent<ExplosiveBarrelScript>().explode = true;
+                }
+
+                //If the explosion hit the tag "Target"
+                if (hit.transform.tag == "Target")
+                {
+                    //Toggle the isHit bool on the target object
+                    hit.transform.gameObject.GetComponent<TargetScript>().isHit = true;
+                }
+
+                //If the explosion hit the tag "GasTank"
+                if (hit.GetComponent<Collider>().tag == "GasTank")
+                {
+                    //If gas tank is within radius, explode it
+                    hit.gameObject.GetComponent<GasTankScript>().isHit = true;
+                    hit.gameObject.GetComponent<GasTankScript>().explosionTimer = 0.05f;
+                }
+
+                //Instantiate explosion prefab at hit position
+                Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+
+                if (autoDestroy)
+                {
+                    Destroy(gameObject);
+                    DestroyEvent?.Invoke();
+                }
+            }
         }
     }
 }
