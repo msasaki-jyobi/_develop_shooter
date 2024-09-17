@@ -14,7 +14,7 @@ namespace develop_shooter
         [field: SerializeField] public int CurrentHealth { get; private set; } = 5;
         public int MaxHealth { get; private set; } = 50;
 
-        public ExplosiveBarrelScript Smile;
+        public GameObject DestroyEffect;
         public AnimatorStateController AnimatorStateController;
 
         private void Awake()
@@ -44,8 +44,8 @@ namespace develop_shooter
                     ScoreManager.Instance.AddScore();
 
                 if (CurrentHealth <= -1)
-                    if (Smile != null)
-                        Smile.explode = true;
+                    if (DestroyEffect != null)
+                        UtilityFunction.PlayEffect(gameObject, DestroyEffect);
 
                 // Animator次第で
                 if(AnimatorStateController != null)

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 54704279786675872}
   - component: {fileID: 65871565580582628}
   - component: {fileID: 96448838451407516}
-  - component: {fileID: 2293132195211513380}
   - component: {fileID: 4390311402824458073}
   m_Layer: 15
   m_Name: P_LPSP_PROJ_Bullet_01 G
@@ -201,39 +200,6 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 0
---- !u!114 &2293132195211513380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1086664671600574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9958c9985aae7cf47aead838ddcba21c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetTags:
-  - Player
-  - Unit
-  - Character
-  IsFinishDestroy: 0
-  DestroyTime: 0.5
-  EnterEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: develop_shooter.ExplosiveBarrelScript, Assembly-CSharp
-        m_MethodName: OnExplode
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &4390311402824458073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,11 +213,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Amount: 5
-  HitEffect: {fileID: 1614059191098778452, guid: 02b47652dddf0564788e35ca026d3e88,
-    type: 3}
+  HitEffect: {fileID: 1126181125208960, guid: 118f3a246dc6b91459d6d5090d035ef5, type: 3}
   HitSE: {fileID: 0}
   IsHitDestroy: 1
-  TargetLayers: 00000000010000000f000000
+  TargetLayers: 000000000a0000000f000000
 --- !u!1 &1231345400216816
 GameObject:
   m_ObjectHideFlags: 0

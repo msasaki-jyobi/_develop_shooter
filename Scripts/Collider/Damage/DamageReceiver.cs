@@ -16,9 +16,14 @@ namespace develop_shooter
         [SerializeField] private SerializableInterface<IHealth> _health = new SerializableInterface<IHealth>();
 
         public float DamageScale = 1;
-        public GameObject HitEffect;
-        public AudioClip HitSE;
+        public GameObject DamageEffect;
+        public AudioClip DamageSE;
         //public List<int> TargetLayers = new List<int> { 0, 1, 15 };  // 対象レイヤーのリスト
+
+        private void Start()
+        {
+
+        }
 
         private void OnCollisionEnter(Collision collision)
         {
@@ -52,8 +57,8 @@ namespace develop_shooter
                     Debug.LogWarning("Health component or value is not assigned.");
                 }
 
-                UtilityFunction.PlayEffect(gameObject, HitEffect);
-                AudioManager.Instance.PlayOneShot(HitSE, EAudioType.Se);
+                UtilityFunction.PlayEffect(gameObject, DamageEffect);
+                AudioManager.Instance.PlayOneShot(DamageSE, EAudioType.Se);
             }
 
         }
