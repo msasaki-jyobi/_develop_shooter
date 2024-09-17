@@ -25,17 +25,16 @@ namespace develop_shooter
 
         private void Update()
         {
-            bool check = UtilityFunction.CheckLineData(_groundData, transform);
-            if (check)
-            {
-                if (Input.GetKeyDown(KeyCode.Space))
-                    OnJump();
-            }
+            //if (Input.GetKeyDown(KeyCode.Space))
+            //    OnJump();
+    
         }
 
         public void OnJump()
         {
-            _rigidBody.AddForce(transform.up * _jumpPower, ForceMode.Impulse);
+            bool check = UtilityFunction.CheckLineData(_groundData, transform);
+            if (check)
+                _rigidBody.AddForce(transform.up * _jumpPower, ForceMode.Impulse);
         }
     }
 }
