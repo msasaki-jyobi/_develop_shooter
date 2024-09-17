@@ -18,7 +18,7 @@ namespace develop_shooter
 
         private void Start()
         {
-            foreach(StaticObjectInfo info in StaticObjects) 
+            foreach (StaticObjectInfo info in StaticObjects)
             {
                 info.GateObject.transform.position = info.GatePosition;
                 info.GateObject.transform.rotation = Quaternion.Euler(info.GateRotation);
@@ -37,10 +37,10 @@ namespace develop_shooter
         public void PlayGate()
         {
             _currentGate++;
+            UpdateGateGUI();
 
             if (_currentGate == _maxGate)
             {
-                UpdateGateGUI();
                 // ÉNÉäÉAèàóù
                 ClearEvent.Invoke();
             }

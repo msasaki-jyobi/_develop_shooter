@@ -13,7 +13,7 @@ namespace develop_shooter
     /// </summary>
     public class DamageReceiver : MonoBehaviour
     {
-        //[SerializeField] private SerializableInterface<IHealth> mySerializableInterface;
+        [SerializeField] private SerializableInterface<IHealth> _health = new SerializableInterface<IHealth>();
 
         public float DamageScale = 1;
         public GameObject HitEffect;
@@ -36,23 +36,26 @@ namespace develop_shooter
 
         public async void OnHit(GameObject hit)
         {
-            if(hit.TryGetComponent<AttackCollider>(out var attackCollider))
+            if(hit.TryGetComponent<HitInfo>(out var hitInfo))
             {
-                if (gameObject.TryGetComponent<IHealth>(out var health))
+                if (_health != null && _health.Value != null)
                 {
                     var damageValue = new DamageValue();
-                    var damageAmount = 1;
-
-                    damageAmount = attackCollider.Amount;
-
-
+                    var damageAmount = hitInfo.Amount;
                     damageValue.Amount = damageAmount * (int)DamageScale;
-                    health.TakeDamage(damageValue);
+
+                    Debug.Log($"Health:{_health}, DamageValue :{damageValue}");
+                    _health.Value.TakeDamage(damageValue);
+                }
+                else
+                {
+                    Debug.LogWarning("Health component or value is not assigned.");
                 }
 
                 UtilityFunction.PlayEffect(gameObject, HitEffect);
                 AudioManager.Instance.PlayOneShot(HitSE, EAudioType.Se);
             }
+
         }
     }
 }

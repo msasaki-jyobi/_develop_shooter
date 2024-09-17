@@ -1,6 +1,8 @@
-﻿using develop_common;
+﻿using Cysharp.Threading.Tasks;
+using develop_common;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace develop_shooter
 {
@@ -13,6 +15,7 @@ namespace develop_shooter
         public int MaxHealth { get; private set; } = 50;
 
         public ExplosiveBarrelScript Smile;
+        public AnimatorStateController AnimatorStateController;
 
         private void Awake()
         {
@@ -25,7 +28,7 @@ namespace develop_shooter
             throw new System.NotImplementedException();
         }
 
-        public void TakeDamage(DamageValue damageValue = null)
+        public async void TakeDamage(DamageValue damageValue = null)
         {
             if(damageValue == null)
             {
@@ -43,6 +46,22 @@ namespace develop_shooter
                 if (CurrentHealth <= -1)
                     if (Smile != null)
                         Smile.explode = true;
+
+                // Animator次第で
+                if(AnimatorStateController != null)
+                    if(AnimatorStateController.Animator != null)
+                    {
+                        if(gameObject.TryGetComponent<CapsuleCollider>(out var capsuleCollider))
+                            capsuleCollider.enabled = false;
+                        if (gameObject.TryGetComponent<NavMeshController>(out var navMeshController))
+                            navMeshController.OnStopAgent();
+
+                        AnimatorStateController.ChangeMotion("Dead", 30f, EStatePlayType.SinglePlay, false);
+                        await UniTask.Delay(3000);
+                        Destroy(gameObject);
+                        return;
+                    }
+
 
                 Destroy(gameObject, 0.35f);
             }
