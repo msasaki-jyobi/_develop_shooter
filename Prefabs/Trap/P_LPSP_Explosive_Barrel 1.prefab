@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 6651977227928770593}
   - component: {fileID: 6087966137102583995}
   - component: {fileID: 7386824406474204872}
-  - component: {fileID: 8685240008162054640}
   - component: {fileID: 8201889093355889312}
+  - component: {fileID: 8685240008162054640}
   m_Layer: 0
   m_Name: P_LPSP_Explosive_Barrel 1
   m_TagString: ExplosiveBarrel
@@ -136,6 +136,22 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -6888592040382724874, guid: ab38534e2f6f42f468da880b2ee19deb, type: 3}
+--- !u!114 &8201889093355889312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9050654181234825013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95ee7f4398dadd94d89cf5591d8b81c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitType: 1
+  <CurrentHealth>k__BackingField: 1
+  DestroyEffect: {fileID: 0}
+  AnimatorStateController: {fileID: 0}
 --- !u!114 &8685240008162054640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,26 +171,9 @@ MonoBehaviour:
       rid: -2
   DamageScale: 5
   DamageEffect: {fileID: 0}
-  HitSE: {fileID: 0}
+  DamageSE: {fileID: 0}
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
---- !u!114 &8201889093355889312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9050654181234825013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95ee7f4398dadd94d89cf5591d8b81c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitType: 1
-  <CurrentHealth>k__BackingField: 1
-  DestroySmile: {fileID: 1126181125208960, guid: 118f3a246dc6b91459d6d5090d035ef5,
-    type: 3}
-  AnimatorStateController: {fileID: 0}

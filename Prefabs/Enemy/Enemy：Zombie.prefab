@@ -145,8 +145,8 @@ GameObject:
   - component: {fileID: 2258053007411862197}
   - component: {fileID: 6402982770200837945}
   - component: {fileID: 2199245156292338758}
-  - component: {fileID: 5559147516224117788}
   - component: {fileID: 7671774064066685761}
+  - component: {fileID: 5559147516224117788}
   m_Layer: 10
   m_Name: "Enemy\uFF1AZombie"
   m_TagString: Concrete
@@ -268,26 +268,6 @@ MonoBehaviour:
   <CurrentHealth>k__BackingField: 30
   DestroyEffect: {fileID: 0}
   AnimatorStateController: {fileID: 2603223030735466640}
---- !u!114 &5559147516224117788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4022841118751275424}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76e0e71c2fe214a448109b480df86077, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Amount: 1
-  HitEffect: {fileID: 0}
-  HitSE: {fileID: 0}
-  IsHitDestroy: 0
-  TargetLayers: 000000000a0000000f000000
-  HitEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &7671774064066685761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,6 +293,26 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+--- !u!114 &5559147516224117788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4022841118751275424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76e0e71c2fe214a448109b480df86077, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Amount: 1
+  HitEffect: {fileID: 0}
+  HitSE: {fileID: 0}
+  IsHitDestroy: 0
+  TargetLayers: 000000000a0000000f000000
+  HitEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6092288500533807004
 GameObject:
   m_ObjectHideFlags: 0
