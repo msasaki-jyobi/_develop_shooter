@@ -214,8 +214,11 @@ MonoBehaviour:
   Amount: 1
   HitEffect: {fileID: 0}
   HitSE: {fileID: 8300000, guid: 9373065e5d5cc2a44bc996aab9da4e7a, type: 3}
-  IsHitDestroy: 0
+  IsHitDestroy: 1
   TargetLayers: 000000000a0000000f000000
+  HitEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1231345400216816
 GameObject:
   m_ObjectHideFlags: 0

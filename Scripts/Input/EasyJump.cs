@@ -29,8 +29,13 @@ namespace develop_shooter
             if (check)
             {
                 if (Input.GetKeyDown(KeyCode.Space))
-                    _rigidBody.AddForce(transform.up * _jumpPower, ForceMode.Impulse);
+                    OnJump();
             }
+        }
+
+        public void OnJump()
+        {
+            _rigidBody.AddForce(transform.up * _jumpPower, ForceMode.Impulse);
         }
     }
 }
