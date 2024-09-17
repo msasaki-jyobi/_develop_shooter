@@ -14,7 +14,10 @@ namespace develop_shooter
         [field: SerializeField] public int CurrentHealth { get; private set; } = 5;
         public int MaxHealth { get; private set; } = 50;
 
+        public float DeadDelay = 0f;
+
         public GameObject DestroyEffect;
+        public GameObject OverKillEffect;
         public AnimatorStateController AnimatorStateController;
 
         private void Awake()
@@ -30,7 +33,7 @@ namespace develop_shooter
 
         public async void TakeDamage(DamageValue damageValue = null)
         {
-            if(damageValue == null)
+            if (damageValue == null)
             {
                 damageValue = new DamageValue();
                 damageValue.Amount = 1;
@@ -43,15 +46,17 @@ namespace develop_shooter
                 if (ScoreManager.Instance != null)
                     ScoreManager.Instance.AddScore();
 
+                UtilityFunction.PlayEffect(gameObject, DestroyEffect);
+
                 if (CurrentHealth <= -1)
                     if (DestroyEffect != null)
-                        UtilityFunction.PlayEffect(gameObject, DestroyEffect);
+                        UtilityFunction.PlayEffect(gameObject, OverKillEffect);
 
                 // Animator次第で
-                if(AnimatorStateController != null)
-                    if(AnimatorStateController.Animator != null)
+                if (AnimatorStateController != null)
+                    if (AnimatorStateController.Animator != null)
                     {
-                        if(gameObject.TryGetComponent<CapsuleCollider>(out var capsuleCollider))
+                        if (gameObject.TryGetComponent<CapsuleCollider>(out var capsuleCollider))
                             capsuleCollider.enabled = false;
                         if (gameObject.TryGetComponent<NavMeshController>(out var navMeshController))
                             navMeshController.OnStopAgent();
@@ -63,7 +68,7 @@ namespace develop_shooter
                     }
 
 
-                Destroy(gameObject, 0.35f);
+                Destroy(gameObject, DeadDelay);
             }
         }
 
