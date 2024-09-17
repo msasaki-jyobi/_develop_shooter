@@ -43,6 +43,10 @@ namespace develop_shooter
         {
             if(hit.TryGetComponent<HitInfo>(out var hitInfo))
             {
+                if (hitInfo.IgnoreHitUnit == _health.Value.UnitType)
+                    return;
+
+
                 if (_health != null && _health.Value != null)
                 {
                     var damageValue = new DamageValue();

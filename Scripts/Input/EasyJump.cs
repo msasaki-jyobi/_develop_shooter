@@ -36,6 +36,8 @@ namespace develop_shooter
             if (check)
                 _rigidBody.AddForce(transform.up * _jumpPower, ForceMode.Impulse);
         }
+
+
     }
 }
 

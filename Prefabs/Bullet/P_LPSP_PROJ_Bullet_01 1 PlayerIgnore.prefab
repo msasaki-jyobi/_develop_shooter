@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 96448838451407516}
   - component: {fileID: -4015290801974546526}
   m_Layer: 15
-  m_Name: P_LPSP_PROJ_Bullet_01 1
+  m_Name: P_LPSP_PROJ_Bullet_01 1 PlayerIgnore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -219,7 +219,7 @@ MonoBehaviour:
   HitEvent:
     m_PersistentCalls:
       m_Calls: []
-  IgnoreHitUnit: 2
+  IgnoreHitUnit: 1
 --- !u!1 &1231345400216816
 GameObject:
   m_ObjectHideFlags: 0

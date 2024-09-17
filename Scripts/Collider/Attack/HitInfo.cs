@@ -18,7 +18,11 @@ namespace develop_shooter
         public List<int> TargetLayers = new List<int> { 0, 10, 15 };  // 対象レイヤーのリスト
         public UnityEvent HitEvent;
 
+        public EUnitType IgnoreHitUnit;
+
         private GameObject _hit;
+
+       
 
 
         private void OnCollisionEnter(Collision collision)
