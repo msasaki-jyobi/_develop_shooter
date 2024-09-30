@@ -61,7 +61,7 @@ namespace develop_shooter
                         if (gameObject.TryGetComponent<NavMeshController>(out var navMeshController))
                             navMeshController.OnStopAgent();
 
-                        AnimatorStateController.ChangeMotion("Dead", 30f, EStatePlayType.SinglePlay, false);
+                        AnimatorStateController.StatePlay("Dead", EStatePlayType.SinglePlay, false);
                         await UniTask.Delay(3000);
                         Destroy(gameObject);
                         return;
