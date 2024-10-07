@@ -14,8 +14,8 @@ namespace develop_shooter
         public float minYAngle = -90.0f;
         public float maxYAngle = 90.0f;
 
-        [Tooltip("Target object to rotate.")]
-        public Transform target;
+        [Tooltip("Target object to rotate for horizontal movement (Yaw).")]
+        public Transform target; // Player or object that rotates horizontally
 
         private float xRotation = 0f;
 
@@ -35,6 +35,9 @@ namespace develop_shooter
         {
             // Hide and lock the cursor to the center of the screen
             Cursor.lockState = CursorLockMode.Locked;
+
+            // Initialize xRotation to avoid sudden jumps
+            xRotation = transform.localEulerAngles.x;
         }
 
         void Update()
@@ -47,12 +50,12 @@ namespace develop_shooter
             // Rotate target around the Y-axis (horizontal rotation)
             target.Rotate(Vector3.up * mouseX);
 
-            // Accumulate vertical rotation and clamp it
+            // Accumulate vertical rotation and clamp it for camera only
             xRotation -= mouseY;
             xRotation = Mathf.Clamp(xRotation, minYAngle, maxYAngle);
 
-            // Apply the vertical rotation to the target (local X-axis rotation)
-            target.localRotation = Quaternion.Euler(xRotation, target.localEulerAngles.y, 0.0f);
+            // Apply vertical rotation to the camera (not the target)
+            transform.localRotation = Quaternion.Euler(xRotation, 0.0f, 0.0f);
         }
 
         private void OnDestroy()
