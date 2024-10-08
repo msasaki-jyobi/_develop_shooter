@@ -98,6 +98,11 @@ namespace develop_shooter
  
             //}
         }
+
+        public void ChangeStatus(EUnitStatus status)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

@@ -94,5 +94,10 @@ namespace develop_shooter
                 TakeDamage();
             }
         }
+
+        public void ChangeStatus(EUnitStatus status)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
