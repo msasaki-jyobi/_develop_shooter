@@ -9,8 +9,12 @@ namespace develop_shooter
     public class EnemyHealth : MonoBehaviour, IHealth
     {
         [SerializeField]
-        private EUnitType unitType = EUnitType.Player;
-        public EUnitType UnitType => unitType;
+        private EUnitType _unitType = EUnitType.Player;
+        public EUnitType UnitType => _unitType;
+
+        [SerializeField]
+        private EUnitStatus _unitStatus = EUnitStatus.Ready;
+        public EUnitStatus UnitStatus => _unitStatus;
         [field: SerializeField] public int CurrentHealth { get; private set; } = 5;
         public int MaxHealth { get; private set; } = 50;
 
