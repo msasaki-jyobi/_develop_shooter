@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using develop_common;
 using System.Collections;
+using UniRx;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,9 +13,7 @@ namespace develop_shooter
         private EUnitType _unitType = EUnitType.Player;
         public EUnitType UnitType => _unitType;
 
-        [SerializeField]
-        private EUnitStatus _unitStatus = EUnitStatus.Ready;
-        public EUnitStatus UnitStatus => _unitStatus;
+        public ReactiveProperty<EUnitStatus> UnitStatus => new ReactiveProperty<EUnitStatus>();
         [field: SerializeField] public int CurrentHealth { get; private set; } = 5;
         public int MaxHealth { get; private set; } = 50;
 
